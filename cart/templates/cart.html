@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
+
+{% block head_js %}
+  <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
+  <script type="text/javascript">
+      //<![CDATA[
+      Stripe.publishableKey = '{{ publishable }}';
+      //]]>
+  </script>
+  <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+     <section class="container cart content-section animated slideInDown">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+
+				<ul>
+					<li class="cart-row list-inline columnCaptions">
+						<span>QTY</span>
+						<span>ITEM</span>
+						<span>Price</span>
+					</li>
+
+                            {% for item in items %}
+
+                                <li class="cart-row">
+                                    <span class="quantity">{{ item.quantity }}</span>
+                                    <span class="itemName">{{ item.product.name }}</span>
+                                    <a class="addRemove" href="{% url 'remove_from_cart_cart' item.id %}"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a class="addRemove" href="{% url 'add_to_cart_cart' item.product.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+                                    <a class="addRemove" href="{% url 'remove_from_cart' item.id %}"><span class="glyphicon glyphicon-minus"></span></a>
+                                    <span class="price">{{ item.cost }}</span>
+
+
+                                </li>
+
+                            {% endfor %}
+
+                        <li class="row totals">
+                            <span class="itemName">Total:</span>
+                            <span class="price">{{ total }}</span>
+                            <span class="order" data-toggle="collapse" href="#payment-form"> <a class="text-center" href="#">ORDER</a></span>
+                        </li>
+
+
+                </ul>
+
+                    <hr>
+
+                    <form role="form" method="post" id="payment-form" class="collapse" action="{% url 'cart' %}">
+                    <div id="credit-card-errors" style="display:none">
+                      <div class="alert-message block-message error" id="stripe-error-message"></div>
+                    </div>
+
+
+                    {% csrf_token %}
+                    {{ form | as_bootstrap }}
+                    <div class="form-group">
+                      <input class="btn btn-primary" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
+                    </div>
+                    </form>
+
+
+
+               </div>
+        </div>
+    </section>
+{% endblock %}

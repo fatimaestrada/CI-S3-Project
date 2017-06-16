@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load gravatar %}
+{% block content %}
+    <section class="container content-section profile text-center">
+        <div class="row col-lg-8 col-lg-offset-2 animated slideInDown">
+            <div id="left">
+
+            <h2>Hello, {{ user.username }} !</h2>
+            <img src="{% gravatar_url user.email 150 %}" alt="Looking Awesome!" title="Looking Awesome !" style="width:100px; height: 100px; background-color: #12ABB2; color: #ffffff;" class="img-thumbnail">
+
+
+            </div>
+            <div id="right">
+                <p> <h3> Details</h3> </p>
+                <ul>
+                    <li><p><strong>e-mail:</strong> {{ user.email }}</p></li>
+                </ul>
+                    <hr>
+                     <p>Last login on: {{ user.last_login }}</p>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

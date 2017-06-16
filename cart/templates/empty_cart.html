@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+     <section class="container content-section empty-cart-selection text-center">
+        <div class="row">
+
+
+                <div>
+                    <h2><i class="fa fa-grav fa-2x" aria-hidden="true"></i> Oops!</h2>
+                    <h3>You have no items in your cart.</h3>
+                </div>
+                    <div><a class="btn btn-default" href="{% url 'products' %}">Go shopping</a></div>
+
+
+         </div>
+    </section>
+{% endblock %}

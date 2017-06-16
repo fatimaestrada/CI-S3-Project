@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="container products-selection content-section text-center">
+        <div class="row products container">
+
+
+                    {% for product in products %}
+
+                        <div class="wrapper col-md-4">
+                        <div class="panel">
+                            <img src="{{ MEDIA_URL }}{{ product.image }}" class="img-responsive" alt="{{ product.name }}" />
+                            <h3>{{ product.name }}</h3>
+                            <p>Canned Air from {{ product.name }} is a middle-sized empty can, a gag souvenir with witty texts and images printed on it. The can is 88 mm (3,46 in) high and 86mm (3,38 in) in diameter.</p>
+                            <div class="pi-price"> {{ product.price }}</div>
+                            <div class="slide">
+                              <h4>Details</h4>
+                              <p>{{ product.description | linebreaks }}</p>
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-default add2cart"><i class="fa fa-cart-arrow-down"> Add to cart </i></a>
+                            </div>
+                        </div>
+                        </div>
+
+                     {% endfor %}
+
+
+         </div>
+    </section>
+{% endblock %}
